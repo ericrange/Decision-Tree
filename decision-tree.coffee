@@ -34,20 +34,18 @@ gain = () ->
 
 entropy = (Values, Class) ->
   Entropy = 0;
-  ArrayLength = Values.length;
 
   #Count unique values
-  ValueGroups = _.countBy Values, (Entry) -> return Entry[Class]
+  UniqueValues = _.countBy Values, (Entry) -> return Entry[Class]
   
   #Calc entropy
-  Object.keys(ValueGroups).forEach (Value) ->
-    Proportion = ValueGroups[Value] / ArrayLength;
+  for Value in Object.keys UniqueValues
+    Proportion = UniqueValues[Value] / Values.length;
     Entropy += Proportion * log2 Proportion;
-    return
-    
+
   return -Entropy
 
 log2 = (x) ->
-  return Math.log(x) / Math.log(2);
+  return Math.log(x) / Math.log(2)
 
 module.exports = DecisionTree

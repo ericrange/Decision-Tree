@@ -32,17 +32,17 @@ C45 = function() {};
 gain = function() {};
 
 entropy = function(Values, Class) {
-  var ArrayLength, Entropy, ValueGroups;
+  var Entropy, Proportion, UniqueValues, Value, _i, _len, _ref;
   Entropy = 0;
-  ArrayLength = Values.length;
-  ValueGroups = _.countBy(Values, function(Entry) {
+  UniqueValues = _.countBy(Values, function(Entry) {
     return Entry[Class];
   });
-  Object.keys(ValueGroups).forEach(function(Value) {
-    var Proportion;
-    Proportion = ValueGroups[Value] / ArrayLength;
+  _ref = Object.keys(UniqueValues);
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    Value = _ref[_i];
+    Proportion = UniqueValues[Value] / Values.length;
     Entropy += Proportion * log2(Proportion);
-  });
+  }
   return -Entropy;
 };
 
